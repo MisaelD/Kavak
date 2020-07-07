@@ -40,7 +40,7 @@ Igualmente hice con los filtros, que debo decir, me causo un poco de problema, a
 color de cabello y edad.
 
 Para el filtro por el color de cabello, primero obtuve los diferentes tonalidades de cabello, para despues filtrar como anteriormente lo hice. Y con la edad 
-propuse un rago que fuera significativo, los filtre por menos de 100 años y mayor a 100 años.
+propuse un rango que fuera significativo, los filtre por menos de 100 años y mayor a 100 años.
 ```
 func getHairColors() -> [String] {
         var hairColors = [String]()
