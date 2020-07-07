@@ -6,6 +6,7 @@ public class GnomeViewModel {
     
     var gnomes : GnomesModel?
     var gnomesAnnotation : [PinAnnotationViewModel]?
+    var gnomesAnnotationSearched : [PinAnnotationViewModel]?
     var countRandomCoordinates = 0
 }
 
@@ -113,10 +114,10 @@ extension GnomeViewModel {
         }
         return gnomesSearched
  */
-        let gnomesSearched = gnomesAnnotation?.filter{
+        gnomesAnnotationSearched = gnomesAnnotation?.filter{
             $0.name.lowercased().contains(name.lowercased())
         }
-        return gnomesSearched!
+        return gnomesAnnotationSearched!
     }
     
     func getHairColors() -> [String] {
@@ -133,8 +134,16 @@ extension GnomeViewModel {
         let ageLess = filters[1]["filter"] == "<" ? 100 : nil
         let ageOlder = filters[1]["filter"] == ">" ? 100 : nil
         
-        let filteredAnnotation = gnomesAnnotation?.filter{
-            $0.hairColor.contains(filters[0]["filter"] ?? $0.hairColor) && $0.age <= (ageLess ?? $0.age) && $0.age >= (ageOlder ?? $0.age)
+        let filteredAnnotation : [PinAnnotationViewModel]?
+        
+        if gnomesAnnotationSearched == nil {
+            filteredAnnotation = gnomesAnnotation?.filter{
+                $0.hairColor.contains(filters[0]["filter"] ?? $0.hairColor) && $0.age <= (ageLess ?? $0.age) && $0.age >= (ageOlder ?? $0.age)
+            }
+        }else{
+            filteredAnnotation = gnomesAnnotationSearched?.filter{
+                $0.hairColor.contains(filters[0]["filter"] ?? $0.hairColor) && $0.age <= (ageLess ?? $0.age) && $0.age >= (ageOlder ?? $0.age)
+            }
         }
         return filteredAnnotation!
     }

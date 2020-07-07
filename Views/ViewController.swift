@@ -9,7 +9,7 @@ class ViewController: UIViewController {
     
     var gnomesViewModel = GnomeViewModel()
     var filterModalViewModel : FilterModalViewModel?
-    var searchActive = false
+    //var searchActive = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -157,25 +157,15 @@ extension ViewController: MKMapViewDelegate {
 }
 
 extension ViewController: UISearchBarDelegate {
-    
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchActive = true
-    }
-
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchActive = false
-    }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchActive = false;
-
+        gnomesViewModel.gnomesAnnotationSearched = nil
         searchBar.text = nil
         searchBar.resignFirstResponder()
         addAnnotations()
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchActive = false
         searchBar.resignFirstResponder()
         let annotations = mapView.annotations
         let gnomesAnnotationSearched = gnomesViewModel.searchNameGnome(annotations: annotations, name: searchBar.text!)
@@ -184,10 +174,6 @@ extension ViewController: UISearchBarDelegate {
 
     func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
         return true
-    }
-
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.searchActive = true;
     }
 }
 
