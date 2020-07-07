@@ -16,7 +16,7 @@ Son muchos gnomos y dentro del mapa se amontonan. Así que decidí hacer un clus
 cierta región del mapa y al hacer zoom, se van desplegando hasta que podemos observar las imagenes de los gnomos.
 
 Al hacer tap sobre ellos, nos muestra una pequeña descripción, decidí mostrar el nombre y la edad, que pienso que son los más relevantes. En esta 
-descripción hay un botón que nos lleva a la toda la decripción del gnomo.
+descripción hay un botón que nos lleva a la toda la información del gnomo.
 
 `Pero espera, sus amigos no tienen imágen.` Revisando el Json me di cuenta que podría buscar a sus amigos y obtener la URL de su imagen. Así que decidí 
 hacerlo:
@@ -88,6 +88,7 @@ Utilicé los siguientes pods:
 - [ ] Determinar el género :(
 - [ ] Tal vez haya algunos bichos, pero pequeños
 - [x] Github
+- [x] Code style: me he apegado a las convenciones que dictan el buen còdigo. Utilice la programación descriptiva.
 
 
 
