@@ -1,6 +1,7 @@
 import UIKit
 import MapKit
 import AlamofireImage
+import MBProgressHUD
 
 class ViewController: UIViewController {
 
@@ -14,6 +15,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        showHud("Searching gnomes")
+        
         gnomesViewModel.fetchGnomes { [weak self] success in
             if success {
                 self!.addAnnotations()
@@ -22,6 +25,7 @@ class ViewController: UIViewController {
             }else {
                 print("error")
             }
+            self!.hideHUD()
         }
         searchBar.compatibleSearchTextField.backgroundColor = UIColor.white.withAlphaComponent(0.9)
         
@@ -162,7 +166,14 @@ extension ViewController: UISearchBarDelegate {
         gnomesViewModel.gnomesAnnotationSearched = nil
         searchBar.text = nil
         searchBar.resignFirstResponder()
-        addAnnotations()
+        showHud("loading")
+        DispatchQueue.global(qos: .userInitiated).sync {
+            self.addAnnotations()
+            DispatchQueue.main.async {
+                self.hideHUD()
+            }
+        }
+        
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -202,5 +213,15 @@ extension ViewController {
     
     func addObserverFilters() {
         self.filterModalViewModel?.addObserver(self, forKeyPath: #keyPath(FilterModalViewModel.filters), options:  [ .new, .old ], context: nil)
+    }
+    
+    func showHud(_ message: String) {
+        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+        hud.label.text = message
+        hud.isUserInteractionEnabled = false
+    }
+
+    func hideHUD() {
+        MBProgressHUD.hide(for: self.view, animated: true)
     }
 }

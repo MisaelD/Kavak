@@ -8,5 +8,6 @@ target 'Gnome' do
   # Pods for Gnome
 pod 'Alamofire'
 pod 'AlamofireImage'
+pod 'MBProgressHUD'
 
 end
