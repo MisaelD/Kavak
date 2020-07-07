@@ -11,14 +11,14 @@ import Foundation
 @objc public class FilterModalViewModel: NSObject {
     
     var hairColorFilter : [String]?
-    var weightFilter = ["0 to 20","21 to 40","40 >"]
-    var heightFilter = ["0 to 40","41 to 80","80 >"]
-    let sectionTitles = ["Weight","Height","Hair color"]
-    var sectionIsExpanded = [false, false, false]
+    var ageFilter = ["Less than 100 years", "Older than 100 years"]
+    //var heightFilter = ["0 to 80", "80 >"]
+    let sectionTitles = ["Age", "Hair color"]
+    var sectionIsExpanded = [false, false]
     var hairColorFilterChecked : [Bool]?
-    var weightFilterChecked = [false, false, false]
-    var heightFilterChecked = [false, false, false]
-    @objc dynamic var filters = ""
+    var ageFilterChecked = [false, false]
+    //var heightFilterChecked = [false, false, false]
+    @objc dynamic var filters : [Dictionary<String, String>] = [[:],[:]]
     
     
     public init(hairColorFilter: [String]) {
@@ -30,12 +30,9 @@ import Foundation
         
         switch section {
         case 0:
-            weightFilterChecked = weightFilterChecked.map{ _ in return false}
-            weightFilterChecked[row] =  check
+            ageFilterChecked = ageFilterChecked.map{ _ in return false}
+            ageFilterChecked[row] =  check
         case 1:
-            heightFilterChecked = heightFilterChecked.map{ _ in return false}
-            heightFilterChecked[row] =  check
-        case 2:
             hairColorFilterChecked = hairColorFilterChecked!.map{ _ in return false}
             hairColorFilterChecked![row] =  check
         default:
@@ -46,13 +43,34 @@ import Foundation
     func cellIsChecked(section: Int, row: Int) -> Bool{
         switch section {
         case 0:
-            return weightFilterChecked[row]
+            return ageFilterChecked[row]
         case 1:
-            return heightFilterChecked[row]
-        case 2:
             return hairColorFilterChecked![row]
         default:
             return false
         }
+    }
+    
+    func formFilters() {
+        
+        var filtersAux : [Dictionary<String, String>] = [[:],[:]]
+        
+        if let index = hairColorFilterChecked!.firstIndex(where: {$0 == true}) {
+            //filters.append("Weigh: \(hairColorFilter![index])")
+            var emptyDic : Dictionary<String, String> = [:]
+            emptyDic["nameFilter"] = "Hair color: \(hairColorFilter![index])"
+            emptyDic["filter"] = hairColorFilter![index]
+            filtersAux[0] = emptyDic
+        }
+        
+        if let index = ageFilterChecked.firstIndex(where: {$0 == true}) {
+            //filters.append("Weigh: \(hairColorFilter![index])")
+            var emptyDic : Dictionary<String, String> = [:]
+            emptyDic["nameFilter"] = "Age: \(ageFilter[index])"
+            emptyDic["filter"] = index == 0 ? "<" : ">"
+            filtersAux[1] = emptyDic
+        }
+        
+        filters = filtersAux
     }
 }

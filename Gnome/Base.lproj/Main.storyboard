@@ -11,6 +11,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Mwm-xO-IVU">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="F4O-3E-ucT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController id="M0b-6D-roe" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7YU-sr-DhK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -23,7 +24,6 @@
                         <segue destination="j4M-AL-JrT" kind="relationship" relationship="rootViewController" id="SXn-Ck-OP5"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="F4O-3E-ucT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1406" y="128"/>
         </scene>
@@ -32,17 +32,17 @@
             <objects>
                 <viewController id="j4M-AL-JrT" customClass="ViewController" customModule="Gnome" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OwM-zv-GWJ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="692"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="sw6-Ng-Sxb">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="692"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <connections>
                                     <outlet property="delegate" destination="j4M-AL-JrT" id="fIT-rP-sIt"/>
                                 </connections>
                             </mapView>
                             <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IKu-V2-Jia">
-                                <rect key="frame" x="70" y="0.0" width="344" height="57"/>
+                                <rect key="frame" x="57" y="0.0" width="357" height="58"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <scopeButtonTitles>
@@ -54,7 +54,7 @@
                                 </connections>
                             </searchBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sO9-pb-4IR">
-                                <rect key="frame" x="20" y="8" width="40" height="41"/>
+                                <rect key="frame" x="20" y="14" width="30" height="30"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="FilterIcon"/>
                                 <connections>
@@ -64,7 +64,7 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="IKu-V2-Jia" firstAttribute="leading" secondItem="ieN-rC-qq2" secondAttribute="leading" constant="70" id="2ko-Zl-rn2"/>
+                            <constraint firstItem="IKu-V2-Jia" firstAttribute="leading" secondItem="ieN-rC-qq2" secondAttribute="leading" constant="57" id="2ko-Zl-rn2"/>
                             <constraint firstItem="ieN-rC-qq2" firstAttribute="bottom" secondItem="sw6-Ng-Sxb" secondAttribute="bottom" id="4Ph-lZ-2K8"/>
                             <constraint firstItem="IKu-V2-Jia" firstAttribute="top" secondItem="ieN-rC-qq2" secondAttribute="top" id="5jJ-NC-bWS"/>
                             <constraint firstItem="IKu-V2-Jia" firstAttribute="centerY" secondItem="sO9-pb-4IR" secondAttribute="centerY" id="6fM-ZD-OjJ"/>
@@ -73,14 +73,14 @@
                             <constraint firstItem="sw6-Ng-Sxb" firstAttribute="top" secondItem="ieN-rC-qq2" secondAttribute="top" id="nq8-wA-rHB"/>
                             <constraint firstItem="IKu-V2-Jia" firstAttribute="trailing" secondItem="sw6-Ng-Sxb" secondAttribute="trailing" id="oNL-gQ-MaC"/>
                             <constraint firstItem="ieN-rC-qq2" firstAttribute="trailing" secondItem="sw6-Ng-Sxb" secondAttribute="trailing" id="qFx-LM-K60"/>
-                            <constraint firstItem="sO9-pb-4IR" firstAttribute="height" secondItem="OwM-zv-GWJ" secondAttribute="height" multiplier="0.0592486" id="uk3-fk-qzW"/>
-                            <constraint firstItem="sO9-pb-4IR" firstAttribute="width" secondItem="OwM-zv-GWJ" secondAttribute="width" multiplier="0.0966184" id="w2I-Lh-qqp"/>
-                            <constraint firstItem="sO9-pb-4IR" firstAttribute="top" secondItem="ieN-rC-qq2" secondAttribute="top" constant="8" id="xWk-34-vHA"/>
+                            <constraint firstItem="sO9-pb-4IR" firstAttribute="height" secondItem="OwM-zv-GWJ" secondAttribute="height" multiplier="0.0592486" constant="-13.606969599999999" id="uk3-fk-qzW"/>
+                            <constraint firstItem="sO9-pb-4IR" firstAttribute="width" secondItem="OwM-zv-GWJ" secondAttribute="width" multiplier="0.0966184" constant="-10.0000176" id="w2I-Lh-qqp"/>
+                            <constraint firstItem="sO9-pb-4IR" firstAttribute="top" secondItem="ieN-rC-qq2" secondAttribute="top" constant="14" id="xWk-34-vHA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ieN-rC-qq2"/>
                     </view>
                     <navigationItem key="navigationItem" id="SB7-5l-wGp"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="mapView" destination="sw6-Ng-Sxb" id="5ad-Ji-qbo"/>
                         <outlet property="searchBar" destination="IKu-V2-Jia" id="rkC-RE-m5A"/>
@@ -98,25 +98,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DXs-wG-viA">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                <items>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="VYh-OW-azP"/>
-                                    <barButtonItem title="Close" id="wLy-UG-qqc">
-                                        <connections>
-                                            <action selector="close" destination="WBH-tM-Bwo" id="MIo-Ou-8mF"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cd0-nu-tcS">
-                                <rect key="frame" x="20" y="11.999999999999998" width="316" height="23.333333333333329"/>
-                                <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="388" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pXu-rp-iQu">
-                                <rect key="frame" x="0.0" y="44" width="414" height="692"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DetailTableViewCell" rowHeight="380" id="JV0-Y2-e0X" customClass="DetailTableViewCell" customModule="Gnome" customModuleProvider="target">
@@ -255,21 +238,14 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="pXu-rp-iQu" firstAttribute="top" secondItem="Aq4-Ku-g3h" secondAttribute="top" constant="44" id="9wn-5U-Wu1"/>
-                            <constraint firstItem="pXu-rp-iQu" firstAttribute="leading" secondItem="Aq4-Ku-g3h" secondAttribute="leading" id="J2i-Wb-cde"/>
-                            <constraint firstItem="Aq4-Ku-g3h" firstAttribute="trailing" secondItem="Cd0-nu-tcS" secondAttribute="trailing" constant="78" id="ToZ-8G-2gH"/>
-                            <constraint firstItem="DXs-wG-viA" firstAttribute="leading" secondItem="Aq4-Ku-g3h" secondAttribute="leading" id="XMZ-7j-pts"/>
-                            <constraint firstItem="Cd0-nu-tcS" firstAttribute="leading" secondItem="Aq4-Ku-g3h" secondAttribute="leading" constant="20" id="ZsF-AP-M1T"/>
-                            <constraint firstItem="Aq4-Ku-g3h" firstAttribute="bottom" secondItem="pXu-rp-iQu" secondAttribute="bottom" id="lYJ-Rc-ONo"/>
-                            <constraint firstItem="Aq4-Ku-g3h" firstAttribute="trailing" secondItem="DXs-wG-viA" secondAttribute="trailing" id="moP-ZJ-0lY"/>
-                            <constraint firstItem="Aq4-Ku-g3h" firstAttribute="trailing" secondItem="pXu-rp-iQu" secondAttribute="trailing" id="osE-mr-oLt"/>
-                            <constraint firstItem="DXs-wG-viA" firstAttribute="top" secondItem="Aq4-Ku-g3h" secondAttribute="top" id="vij-cL-kse"/>
-                            <constraint firstItem="Cd0-nu-tcS" firstAttribute="top" secondItem="Aq4-Ku-g3h" secondAttribute="top" constant="12" id="yLT-ta-byB"/>
+                            <constraint firstItem="Aq4-Ku-g3h" firstAttribute="trailing" secondItem="pXu-rp-iQu" secondAttribute="trailing" id="DQy-K0-rho"/>
+                            <constraint firstItem="pXu-rp-iQu" firstAttribute="leading" secondItem="Aq4-Ku-g3h" secondAttribute="leading" id="Dga-Ey-UTe"/>
+                            <constraint firstItem="pXu-rp-iQu" firstAttribute="top" secondItem="Aq4-Ku-g3h" secondAttribute="top" id="M7v-Oz-K6Q"/>
+                            <constraint firstItem="Aq4-Ku-g3h" firstAttribute="bottom" secondItem="pXu-rp-iQu" secondAttribute="bottom" id="YeB-1M-cA8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Aq4-Ku-g3h"/>
                     </view>
                     <connections>
-                        <outlet property="nameLabel" destination="Cd0-nu-tcS" id="lhl-r1-vtw"/>
                         <outlet property="tableView" destination="pXu-rp-iQu" id="NaC-fW-jap"/>
                     </connections>
                 </viewController>

@@ -8,17 +8,20 @@ class PinAnnotationViewModel: NSObject {
   public let age: Int
   public let imageUrl: String
   public let id: Int
+  public let hairColor :String
   
   public init(coordinate: CLLocationCoordinate2D,
               name: String,
               age: Int,
               imageUrl: String,
-              id: Int) {
+              id: Int,
+              hairColor: String) {
     self.coordinate = coordinate
     self.name = name
     self.age = age
     self.imageUrl = imageUrl
     self.id = id
+    self.hairColor = hairColor
   }
 }
 

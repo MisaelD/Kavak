@@ -1,11 +1,3 @@
-//
-//  DetailViewModel.swift
-//  Gnome
-//
-//  Created by saul reyes saavedra on 05/07/20.
-//  Copyright © 2020 Misael Delgado Saucedo. All rights reserved.
-//
-
 import Foundation
 
 public class DetailViewModel {

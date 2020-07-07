@@ -25,8 +25,8 @@ class FiltersModalViewController: UIViewController {
     }
     
     @IBAction func filter(){
-        //self.dismiss(animated: true, completion: nil)
-        filterModalViewModel?.filters = "hola"
+        self.dismiss(animated: true, completion: nil)
+        filterModalViewModel?.formFilters()
     }
 }
 
@@ -39,10 +39,8 @@ extension FiltersModalViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return filterModalViewModel!.sectionIsExpanded[section] ? (1+(filterModalViewModel?.weightFilter.count)!) : 1
+            return filterModalViewModel!.sectionIsExpanded[section] ? (1+(filterModalViewModel?.ageFilter.count)!) : 1
         case 1:
-            return filterModalViewModel!.sectionIsExpanded[section] ? (1+(filterModalViewModel?.heightFilter.count)!) : 1
-        case 2:
             return filterModalViewModel!.sectionIsExpanded[section] ? (1+(filterModalViewModel?.hairColorFilter?.count)!) : 1
         default:
             return 0
@@ -68,10 +66,8 @@ extension FiltersModalViewController: UITableViewDataSource, UITableViewDelegate
             
             switch indexPath.section {
             case 0:
-                cell.filter.text = filterModalViewModel?.weightFilter[indexPath.row-1]
+                cell.filter.text = filterModalViewModel?.ageFilter[indexPath.row-1]
             case 1:
-                cell.filter.text = filterModalViewModel?.heightFilter[indexPath.row-1]
-            case 2:
                 cell.filter.text = filterModalViewModel?.hairColorFilter![indexPath.row-1]
             default:
                 break
@@ -109,4 +105,3 @@ extension FiltersModalViewController {
         }
     }
 }
-

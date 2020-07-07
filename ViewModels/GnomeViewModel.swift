@@ -1,11 +1,3 @@
-//
-//  GnomeViewModel.swift
-//  Gnome
-//
-//  Created by saul reyes saavedra on 04/07/20.
-//  Copyright © 2020 Misael Delgado Saucedo. All rights reserved.
-//
-
 import Foundation
 import MapKit
 
@@ -35,12 +27,12 @@ extension GnomeViewModel {
     
     func gnomesModelToAnnotations() {
         gnomesAnnotation = (gnomes?.gnomes.map{
-            let annotation = self.annotation(title: $0.name, subtitle: $0.age, imageUrl: $0.thumbnail, id: $0.id)
+            let annotation = self.annotation(title: $0.name, subtitle: $0.age, imageUrl: $0.thumbnail, id: $0.id, hairColor: $0.hair_color)
             return annotation
             })!
     }
     
-    func annotation(title: String, subtitle: Int, imageUrl: String, id: Int) -> PinAnnotationViewModel {
+    func annotation(title: String, subtitle: Int, imageUrl: String, id: Int, hairColor: String) -> PinAnnotationViewModel {
         
         var latitude = randomFloatBetween(61.012960, andBig: 49.693913)
         var longitude = randomFloatBetween(-124.509954, andBig: -93.557276)
@@ -101,7 +93,7 @@ extension GnomeViewModel {
         //-24.726239, -69.781585
         //-33.576068, -53.498827
         let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        let pinAnnotation = PinAnnotationViewModel(coordinate: coordinate, name: title, age: subtitle, imageUrl: imageUrl, id: id)
+        let pinAnnotation = PinAnnotationViewModel(coordinate: coordinate, name: title, age: subtitle, imageUrl: imageUrl, id: id, hairColor: hairColor)
         return pinAnnotation
     }
     
@@ -114,11 +106,17 @@ extension GnomeViewModel {
 extension GnomeViewModel {
     
     func searchNameGnome(annotations: [MKAnnotation], name: String) -> [PinAnnotationViewModel] {
+        /*
         let pinAnnotationConverted = annotations.compactMap { $0 as? PinAnnotationViewModel }
         let gnomesSearched = pinAnnotationConverted.filter {
             $0.name.lowercased().contains(name.lowercased())
         }
         return gnomesSearched
+ */
+        let gnomesSearched = gnomesAnnotation?.filter{
+            $0.name.lowercased().contains(name.lowercased())
+        }
+        return gnomesSearched!
     }
     
     func getHairColors() -> [String] {
@@ -129,5 +127,15 @@ extension GnomeViewModel {
             }
         }
         return hairColors
+    }
+    
+    func filterGnome(annotations: [MKAnnotation], filters: [Dictionary<String, String>]) -> [PinAnnotationViewModel] {
+        let ageLess = filters[1]["filter"] == "<" ? 100 : nil
+        let ageOlder = filters[1]["filter"] == ">" ? 100 : nil
+        
+        let filteredAnnotation = gnomesAnnotation?.filter{
+            $0.hairColor.contains(filters[0]["filter"] ?? $0.hairColor) && $0.age <= (ageLess ?? $0.age) && $0.age >= (ageOlder ?? $0.age)
+        }
+        return filteredAnnotation!
     }
 }

@@ -1,11 +1,3 @@
-//
-//  ViewController.swift
-//  Gnome
-//
-//  Created by saul reyes saavedra on 04/07/20.
-//  Copyright © 2020 Misael Delgado Saucedo. All rights reserved.
-//
-
 import UIKit
 import MapKit
 import AlamofireImage
@@ -21,6 +13,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         gnomesViewModel.fetchGnomes { [weak self] success in
             if success {
                 self!.addAnnotations()
@@ -30,26 +23,33 @@ class ViewController: UIViewController {
                 print("error")
             }
         }
-        searchBar.compatibleSearchTextField.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+        searchBar.compatibleSearchTextField.backgroundColor = UIColor.white.withAlphaComponent(0.9)
+        
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(triggerTouchAction))
+        gestureRecognizer.numberOfTouchesRequired = 1
+        mapView.addGestureRecognizer(gestureRecognizer)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = true
     }
     
     override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?)
     {
-        guard let keyPath = keyPath,  let change = change else
-        {
+        guard let keyPath = keyPath,  let change = change else {
             return
         }
         
-        if let newName = change[NSKeyValueChangeKey.newKey], let oldName = change[NSKeyValueChangeKey.oldKey]
-        {
+        if let newName = change[NSKeyValueChangeKey.newKey], let oldName = change[NSKeyValueChangeKey.oldKey] {
             print("La propiedad con el keyPath '\(keyPath)' antes era \(oldName) y ahora tiene el valor \(newName)")
+            //let filters = newName as? [Dictionary<String, String>]
+            //dump(filters)
+            
+            if let filters = newName as? [Dictionary<String, String>] {
+                let gnomesAnnotationSearched = gnomesViewModel.filterGnome(annotations: mapView.annotations, filters : filters)
+                showAnnotationsSearched(annotations: gnomesAnnotationSearched)
+            }
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(triggerTouchAction))
-        gestureRecognizer.numberOfTouchesRequired = 1
-        mapView.addGestureRecognizer(gestureRecognizer)
     }
 }
 
@@ -108,7 +108,7 @@ extension ViewController: MKMapViewDelegate {
         let amigos = gnomesViewModel.gnomes?.gnomes[view.tag].friends
         detailViewModel.friends = gnomesViewModel.gnomes?.gnomes.filter({amigos!.contains($0.name)})
         detailVC.detailViewModel = detailViewModel
-        self.present(detailVC, animated: true, completion: nil)
+        self.navigationController?.pushViewController(detailVC, animated: true)
     }
     
     private func addAnnotations() {

@@ -3,17 +3,13 @@ import UIKit
 class DetailViewController: UIViewController {
 
     @IBOutlet weak var tableView : UITableView!
-    @IBOutlet weak var nameLabel : UILabel!
     
     var detailViewModel : DetailViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        nameLabel.text = detailViewModel?.gnome?.name ?? ""
-    }
-    
-    @IBAction func close(){
-        self.dismiss(animated: true, completion: nil)
+        navigationController?.navigationBar.isHidden = false
+        self.title = detailViewModel?.gnome?.name ?? ""
     }
 }
 
