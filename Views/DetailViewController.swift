@@ -3,7 +3,6 @@ import UIKit
 class DetailViewController: UIViewController {
 
     @IBOutlet weak var tableView : UITableView!
-    
     var detailViewModel : DetailViewModel?
     
     override func viewDidLoad() {
@@ -83,7 +82,7 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProfessionsTableViewCell", for: indexPath) as! ProfessionsTableViewCell
             
-            if (detailViewModel?.gnome?.professions.count)! == 0{
+            if (detailViewModel?.gnome?.professions.count)! == 0 {
                 cell.profession.text = "Has no profession"
             }else{
                 cell.profession.text = detailViewModel?.gnome?.professions[indexPath.row]
@@ -94,7 +93,7 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "FriendsTableViewCell", for: indexPath) as! FriendsTableViewCell
             
-            if (detailViewModel?.gnome?.friends.count)! == 0{
+            if (detailViewModel?.gnome?.friends.count)! == 0 {
                 cell.name.text = "Has no friends"
             }else{
                 cell.name.text = detailViewModel?.friends?[indexPath.row].name ?? ""

@@ -9,9 +9,9 @@ extension UISearchBar {
     private var legacySearchField: UITextField {
         if let textField = self.subviews.first?.subviews.last as? UITextField {
             return textField
-        } else if let textField = self.value(forKey: "searchField") as? UITextField {
+        }else if let textField = self.value(forKey: "searchField") as? UITextField {
             return textField
-        } else {
+        }else {
             return UITextField()
         }
     }

@@ -14,7 +14,7 @@ class FriendsTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func imageURL(imageURL : String){
+    func imageURL(imageURL : String) {
         let url = URL(string: imageURL)
         thumbnail.af.setImage(withURL: url!, placeholderImage: UIImage(named: "ImagePlaceHolder"), completion: { response in
             self.thumbnail!.image = response.value?.af.imageRoundedIntoCircle()

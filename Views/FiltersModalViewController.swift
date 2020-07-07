@@ -1,11 +1,3 @@
-//
-//  FiltersModalViewController.swift
-//  Gnome
-//
-//  Created by saul reyes saavedra on 06/07/20.
-//  Copyright © 2020 Misael Delgado Saucedo. All rights reserved.
-//
-
 import UIKit
 
 class FiltersModalViewController: UIViewController {
@@ -17,14 +9,13 @@ class FiltersModalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
     }
     
-    @IBAction func close(){
+    @IBAction func close() {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func filter(){
+    @IBAction func filter() {
         updateCheck()
         self.dismiss(animated: true, completion: nil)
         filterModalViewModel?.formFilters()
@@ -58,12 +49,12 @@ extension FiltersModalViewController: UITableViewDataSource, UITableViewDelegate
             
             if (filterModalViewModel?.sectionIsExpanded[indexPath.section])! {
                 cell.setExpanded()
-            } else {
+            }else {
                 cell.setCollapsed()
             }
             cell.showArrow()
             return cell
-        } else {
+        }else {
             
             switch indexPath.section {
             case 0:
@@ -83,12 +74,12 @@ extension FiltersModalViewController: UITableViewDataSource, UITableViewDelegate
         if indexPath.row == 0 {
             filterModalViewModel!.sectionIsExpanded[indexPath.section] = !filterModalViewModel!.sectionIsExpanded[indexPath.section]
             tableView.reloadSections([indexPath.section], with: .automatic)
-        } else {
+        }else {
             let cell = tableView.cellForRow(at: indexPath)
             
             if cell!.accessoryType == .checkmark {
                 cell!.accessoryType = .none
-            } else {
+            }else {
                 resetChecks(section: indexPath.section)
                 cell!.accessoryType = .checkmark
             }
@@ -106,7 +97,6 @@ extension FiltersModalViewController {
     }
     
     func updateCheck(){
-        
         for i in 0..<tableView.numberOfSections{
             for j in 0..<tableView.numberOfRows(inSection: i) {
                 if let cell = tableView.cellForRow(at: IndexPath(row: j, section: i)) {

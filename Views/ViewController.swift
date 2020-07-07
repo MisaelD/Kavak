@@ -10,13 +10,11 @@ class ViewController: UIViewController {
     
     var gnomesViewModel = GnomeViewModel()
     var filterModalViewModel : FilterModalViewModel?
-    //var searchActive = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         showHud("Searching gnomes")
-        
         gnomesViewModel.fetchGnomes { [weak self] success in
             if success {
                 self!.addAnnotations()
@@ -30,7 +28,6 @@ class ViewController: UIViewController {
             self!.hideHUD()
         }
         searchBar.compatibleSearchTextField.backgroundColor = UIColor.white.withAlphaComponent(0.9)
-        
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(triggerTouchAction))
         gestureRecognizer.numberOfTouchesRequired = 1
         mapView.addGestureRecognizer(gestureRecognizer)
@@ -40,21 +37,22 @@ class ViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
     
-    override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?)
-    {
-        guard let keyPath = keyPath,  let change = change else {
+    override public func observeValue(forKeyPath keyPath: String?,
+                                      of object: Any?,
+                                      change: [NSKeyValueChangeKey : Any]?,
+                                      context: UnsafeMutableRawPointer?) {
+        guard let change = change else {
             return
         }
         
-        if let newName = change[NSKeyValueChangeKey.newKey], let oldName = change[NSKeyValueChangeKey.oldKey] {
-            print("La propiedad con el keyPath '\(keyPath)' antes era \(oldName) y ahora tiene el valor \(newName)")
+        if let newName = change[NSKeyValueChangeKey.newKey] {
             if let filters = newName as? [Dictionary<String, String>] {
-                let gnomesAnnotationSearched = gnomesViewModel.filterGnome(annotations: mapView.annotations, filters : filters)
-                if gnomesAnnotationSearched.count == 0{
+                let gnomesAnnotationSearched = gnomesViewModel.filterGnome(annotations: mapView.annotations, filters: filters)
+                if gnomesAnnotationSearched.count == 0 {
                     let alert = UIAlertController(title: "No results", message: "TTry another search criteria", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                     self.present(alert, animated: true)
-                }else{
+                }else {
                     showAnnotationsSearched(annotations: gnomesAnnotationSearched)
                 }
             }
@@ -68,8 +66,7 @@ extension ViewController: MKMapViewDelegate {
         self.view.endEditing(true)
     }
     
-    public func mapView(_ mapView: MKMapView,
-                        viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    public func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         guard let pinViewModel = annotation as? PinAnnotationViewModel else {
           return nil
@@ -81,32 +78,22 @@ extension ViewController: MKMapViewDelegate {
         if annotationView == nil {
             annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             
-        } else {
+        }else {
             annotationView!.annotation = annotation
         }
         annotationView!.canShowCallout = true
         annotationView?.clusteringIdentifier = "PinCluster"
         annotationView?.tag = pinViewModel.id
         annotationView!.image = UIImage(named: "annotationPlaceholder")
-        //annotationView?.leftCalloutAccessoryView = UIImageView(image: UIImage(named: "gnomePlaceholder"))
         let imageView = UIImageView()
-        //imageView.contentMode = .scaleAspectFill
-        
         let url = URL(string: pinViewModel.imageUrl)
-        //imageView.af.setImage(withURL: url!, placeholderImage: UIImage(named: "gnomePlaceholder"))
         imageView.af.setImage(withURL: url!, placeholderImage: UIImage(named: "annotationPlaceholder"), completion: { response in
             let scaledImage = response.value?.af.imageAspectScaled(toFill: CGSize(width: 50.0, height: 50.0), scale: 0.0)
-            
-            //scaledImage?.af.imageAspectScaled(toFit: CGSize(width: 50.0, height: 50.0), scale: 1.0)
-            
             annotationView!.image = scaledImage?.af.imageRoundedIntoCircle()
         })
         
-        //annotationView!.image = imageView.image
-        //annotationView?.leftCalloutAccessoryView = imageView
         annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         annotationView?.rightCalloutAccessoryView?.tintColor = .red
-        //annotationView?.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
         annotationView!.calloutOffset = CGPoint(x: -2, y: 0)
         return annotationView
     }
@@ -186,11 +173,11 @@ extension ViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
         let annotations = mapView.annotations
         let gnomesAnnotationSearched = gnomesViewModel.searchNameGnome(annotations: annotations, name: searchBar.text!)
-        if gnomesAnnotationSearched.count == 0{
+        if gnomesAnnotationSearched.count == 0 {
             let alert = UIAlertController(title: "No results", message: "Try another search criteria", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
             self.present(alert, animated: true)
-        }else{
+        }else {
             showAnnotationsSearched(annotations: gnomesAnnotationSearched)
         }
     }
@@ -206,7 +193,7 @@ extension ViewController {
         self.view.endEditing(true)
     }
     
-    @IBAction func filter(){
+    @IBAction func filter() {
         let filterVC =  self.storyboard?.instantiateViewController(withIdentifier: "FiltersModalViewController") as! FiltersModalViewController
         filterVC.filterModalViewModel = filterModalViewModel
         self.present(filterVC, animated: true, completion: nil)
@@ -224,7 +211,7 @@ extension ViewController {
     }
     
     func addObserverFilters() {
-        self.filterModalViewModel?.addObserver(self, forKeyPath: #keyPath(FilterModalViewModel.filters), options:  [ .new, .old ], context: nil)
+        self.filterModalViewModel?.addObserver(self, forKeyPath: #keyPath(FilterModalViewModel.filters), options: [.new], context: nil)
     }
     
     func showHud(_ message: String) {
