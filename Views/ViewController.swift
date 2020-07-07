@@ -23,7 +23,9 @@ class ViewController: UIViewController {
                 self!.filterModalViewModel = FilterModalViewModel(hairColorFilter: self!.gnomesViewModel.getHairColors())
                 self!.addObserverFilters()
             }else {
-                print("error")
+                let alert = UIAlertController(title: "Oops, something went wrong", message: "Try again later", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self!.present(alert, animated: true)
             }
             self!.hideHUD()
         }
@@ -46,12 +48,15 @@ class ViewController: UIViewController {
         
         if let newName = change[NSKeyValueChangeKey.newKey], let oldName = change[NSKeyValueChangeKey.oldKey] {
             print("La propiedad con el keyPath '\(keyPath)' antes era \(oldName) y ahora tiene el valor \(newName)")
-            //let filters = newName as? [Dictionary<String, String>]
-            //dump(filters)
-            
             if let filters = newName as? [Dictionary<String, String>] {
                 let gnomesAnnotationSearched = gnomesViewModel.filterGnome(annotations: mapView.annotations, filters : filters)
-                showAnnotationsSearched(annotations: gnomesAnnotationSearched)
+                if gnomesAnnotationSearched.count == 0{
+                    let alert = UIAlertController(title: "No results", message: "TTry another search criteria", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    self.present(alert, animated: true)
+                }else{
+                    showAnnotationsSearched(annotations: gnomesAnnotationSearched)
+                }
             }
         }
     }
@@ -100,6 +105,7 @@ extension ViewController: MKMapViewDelegate {
         //annotationView!.image = imageView.image
         //annotationView?.leftCalloutAccessoryView = imageView
         annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        annotationView?.rightCalloutAccessoryView?.tintColor = .red
         //annotationView?.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
         annotationView!.calloutOffset = CGPoint(x: -2, y: 0)
         return annotationView
@@ -180,7 +186,13 @@ extension ViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
         let annotations = mapView.annotations
         let gnomesAnnotationSearched = gnomesViewModel.searchNameGnome(annotations: annotations, name: searchBar.text!)
-        showAnnotationsSearched(annotations: gnomesAnnotationSearched)
+        if gnomesAnnotationSearched.count == 0{
+            let alert = UIAlertController(title: "No results", message: "Try another search criteria", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alert, animated: true)
+        }else{
+            showAnnotationsSearched(annotations: gnomesAnnotationSearched)
+        }
     }
 
     func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {

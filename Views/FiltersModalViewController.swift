@@ -25,6 +25,7 @@ class FiltersModalViewController: UIViewController {
     }
     
     @IBAction func filter(){
+        updateCheck()
         self.dismiss(animated: true, completion: nil)
         filterModalViewModel?.formFilters()
     }
@@ -91,7 +92,6 @@ extension FiltersModalViewController: UITableViewDataSource, UITableViewDelegate
                 resetChecks(section: indexPath.section)
                 cell!.accessoryType = .checkmark
             }
-            filterModalViewModel?.setChecked(section: indexPath.section, row: indexPath.row-1, check: cell!.accessoryType == .checkmark)
         }
     }
 }
@@ -101,6 +101,23 @@ extension FiltersModalViewController {
         for j in 0..<tableView.numberOfRows(inSection: section) {
             if let cell = tableView.cellForRow(at: IndexPath(row: j, section: section)) {
                 cell.accessoryType = .none
+            }
+        }
+    }
+    
+    func updateCheck(){
+        
+        for i in 0..<tableView.numberOfSections{
+            for j in 0..<tableView.numberOfRows(inSection: i) {
+                if let cell = tableView.cellForRow(at: IndexPath(row: j, section: i)) {
+                    if cell.accessoryType == .checkmark {
+                        filterModalViewModel?.setChecked(section: i, row: j-1, check: cell.accessoryType == .checkmark)
+                        break
+                    }else if j>0{
+                        filterModalViewModel?.setChecked(section: i, row: j-1, check: cell.accessoryType == .checkmark)
+                    }
+                    
+                }
             }
         }
     }
